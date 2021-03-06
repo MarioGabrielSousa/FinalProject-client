@@ -8,6 +8,11 @@ class AddWorkout extends React.Component {
     description: "",
     weekdays: [],
     exercises: [],
+    newExercise: {
+      name: "",
+      sets:"",
+      reps: "",
+    },
     //imageUrl: 'http://some'
     //local
     //duration
@@ -35,16 +40,28 @@ class AddWorkout extends React.Component {
     }
   };
 
+  handleExerciseChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      newExercise: {
+        ...this.state.newExercise,
+        [name]: value,
+      },
+    });
+  };
+
   handleFormSubmit = (event) => {
+    // TODO: REVIEW
     event.preventDefault();
     const uploadData = new FormData();
-    const { title, description } = this.state;
+    const { title, description, weekdays } = this.state;
     //uploadData.append('file', this.state.imageUrl);
 
     uploadFile(uploadData).then((response) => {
       const newWorkout = {
-        title: title,
-        description: description,
+        title,
+        description,
+        weekdays,
         //imageUrl: response.data.fileUrl
       };
       addWorkout(newWorkout).then(() => {
@@ -54,26 +71,22 @@ class AddWorkout extends React.Component {
     });
   };
 
-  render() {
-    const { title, description } = this.state;
+  addExercise = () => {
+    const { exercises, newExercise } = this.state;
+    exercises.push(newExercise);
+    this.setState({
+      exercises,
+      newExercise: {
+        name: "",
+        sets: "",
+        reps: "",
+      },
+    });
+  };
+
+  renderWeekdays() {
     return (
-      <form onSubmit={this.handleFormSubmit} encType="multipart/form-data">
-        <label>Title</label>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={this.handleChange}
-        />
-
-        <label>Description</label>
-        <input
-          type="text"
-          name="description"
-          value={description}
-          onChange={this.handleChange}
-        />
-
+      <div>
         <label>Weekdays</label>
         <input
           type="checkbox"
@@ -117,6 +130,78 @@ class AddWorkout extends React.Component {
           value={"Sun"}
           onChange={this.handleChange}
         />
+      </div>
+    );
+  }
+
+  renderExercises() {
+    const {
+      exercises,
+      newExercise: { name, sets, reps },
+    } = this.state;
+    return (
+      <div>
+        <label>Exercises</label>
+        <ul>
+          {exercises.map((e) => (
+            <li>
+              {e.name} ({e.sets}x{e.reps})
+            </li>
+          ))}
+          <li>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              placeholder="Exercise name"
+              onChange={this.handleExerciseChange}
+            />
+            <input
+              type="number"
+              name="sets"
+              value={sets}
+              placeholder="Sets"
+              onChange={this.handleExerciseChange}
+            />
+            <input
+              type="number"
+              name="reps"
+              value={reps}
+              placeholder="reps"
+              onChange={this.handleExerciseChange}
+            />
+            <button type="button" onClick={this.addExercise}>
+              Add
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
+  render() {
+    const { title, description } = this.state;
+    return (
+      <form onSubmit={this.handleFormSubmit} encType="multipart/form-data">
+        <label>Title</label>
+        <input
+          type="text"
+          name="title"
+          value={title}
+          onChange={this.handleChange}
+        />
+
+        <label>Description</label>
+        <input
+          type="text"
+          name="description"
+          value={description}
+          onChange={this.handleChange}
+        />
+
+        {this.renderWeekdays()}
+
+        {this.renderExercises()}
 
         <button type="submit">Create</button>
       </form>

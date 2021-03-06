@@ -24,7 +24,7 @@ class Login extends React.Component {
         //so now I want to lift the state up to app.js
         //setCurrentUser which is a prop
         setCurrentUser(response.data);
-        //history.push('/');
+        history.push('/');
             }).catch(() => {
                 toast.error('Invalid login');
             })

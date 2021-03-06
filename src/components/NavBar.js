@@ -11,24 +11,24 @@ function NavBar({ loggedInUser, setCurrentUser, history }) {
   };
   return loggedInUser ? (
     <>
-      <p>Welcome {loggedInUser.username}</p>
-      <ul>
-        <li>
-          <NavLink to="/">
-            <button onClick={logoutUser}>Logout</button>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink activeStyle={{ color: "red" }} exact to="/workouts">
-            Workouts
-          </NavLink>
-        </li>
-        <li>
-          <NavLink activeStyle={{ color: "red" }} exact to="/workouts/add">
-            Add Workouts
-          </NavLink>
-        </li>
-      </ul>
+        <p>Welcome {loggedInUser.username}</p>
+        <ul>
+          <li>
+            <NavLink to="/">
+              <button onClick={logoutUser}>Logout</button>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink activeStyle={{ color: "red" }} exact to="/workouts">
+              Workouts
+            </NavLink>
+          </li>
+          <li>
+            <NavLink activeStyle={{ color: "red" }} exact to="/workouts/add">
+              Add Workouts
+            </NavLink>
+          </li>
+        </ul>
     </>
   ) : (
     <>
