@@ -23,8 +23,9 @@ export const updateWorkout = (updatedWorkout) => {
     return axios.get(`${baseURL}/workouts/${updatedWorkout.id}`, updatedWorkout);
 }
 
-export const uploadFile = (uploadData) => {
-    return axios.post(`${baseURL}/upload`, uploadData)
+// Exercises Routes
+export const getAllExercises = () => {
+    return axios.get(`${baseURL}/exercises`);
 }
 
 //AUTHENTICATION ROUTES

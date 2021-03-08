@@ -1,0 +1,10 @@
+{
+  "exercises": [
+    { "name": "Bench Press" },
+    { "name": "Situps" },
+    { "name": "Pushups" },
+    { "name": "PullUps" },
+    { "name": "Squats" },
+    { "name": "Butterfly" }
+  ]
+}

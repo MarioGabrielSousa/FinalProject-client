@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { logout } from "../api";
+import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
 function NavBar({ loggedInUser, setCurrentUser, history }) {
   const logoutUser = () => {
@@ -11,7 +12,7 @@ function NavBar({ loggedInUser, setCurrentUser, history }) {
   };
   return loggedInUser ? (
     <>
-        <p>Welcome {loggedInUser.username}</p>
+        <p>{loggedInUser.username}</p>
         <ul>
           <li>
             <NavLink to="/">

@@ -6,10 +6,9 @@ class WorkoutDetails extends React.Component {
 state = {
     id: '',
     title: '',
-    description: ''
-    //local
-    //duration
-    //date
+    description: '',
+    exercises: [],
+    weekDays: '',
 }
 
 componentDidMount() {
@@ -18,7 +17,9 @@ componentDidMount() {
         this.setState({
             id: response.data._id,
             title: response.data.title,
-            description: response.data.description
+            description: response.data.description,
+            exercises: response.data.exercises,
+            weekDays: response.data.weekdays
         })
     })
 }
@@ -31,13 +32,22 @@ handleDeleteWorkout = (id) => {
 }
 
 render() {
-    const { id, title, description } = this.state;
+    const { id, title, description, exercises, weekDays } = this.state;
     return (
         <>
             <h2>{title}</h2>
-            <h3>{description}</h3>
+            <p>{description}</p>
+            <ul>
+                {exercises.map(exercise => {
+                    return (
+                        <li>
+                        {exercise.name}:  {exercise.sets}x{exercise.reps} {exercise.obs}                        
+                    </li>
+                    )
+
+                })}
+            </ul>
             <button onClick={() => this.handleDeleteWorkout(id)}>Delete</button>
-            <button onClick={() =>this.props.history.push(`/workouts/${id}/edit`)}>Edit Workout</button>
 
         </>
     )

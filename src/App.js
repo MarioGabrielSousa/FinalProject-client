@@ -5,15 +5,15 @@ import { Route, Switch } from "react-router-dom";
 import WorkoutDetails from "./components/WorkoutDetails";
 import AddWorkout from "./components/AddWorkout";
 import NavBar from "./components/NavBar";
-import EditWorkout from "./components/EditWorkout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import { loggedin, login } from "./api";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import PrivateRoute from './components/PrivateRoute';
-
+import PrivateRoute from "./components/PrivateRoute";
+import Home from "./components/Home";
+import ListExercises from "./components/ListExercises";
 class App extends React.Component {
   state = {
     loggedInUser: null,
@@ -46,17 +46,14 @@ class App extends React.Component {
           loggedInUser={loggedInUser}
           setCurrentUser={this.setCurrentUser}
         />
+
         <Switch>
-          <Route exact path="/" component={ListWorkouts}></Route>
+          <Route exact path="/" component={Home}></Route>
           <Route exact path="/workouts" component={ListWorkouts}></Route>
+          <Route exact path="/exercises" component={ListExercises}></Route>
           {/*<Route exact path="/workouts/add" component={AddWorkout}></Route>*/}
           <PrivateRoute exact path="/workouts/add" component={AddWorkout} />
           <Route exact path="/workouts/:id" component={WorkoutDetails}></Route>
-          <Route
-            exact
-            path="/workouts/:id/edit"
-            component={EditWorkout}
-          ></Route>
           <Route
             exact
             path="/login"

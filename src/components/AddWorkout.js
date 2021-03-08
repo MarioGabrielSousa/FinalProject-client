@@ -1,6 +1,7 @@
 import React from "react";
-import { addWorkout, uploadFile } from "../api";
+import { addWorkout, getAllExercises } from "../api";
 import { toast } from "react-toastify";
+import CreatableSelect from "react-select/creatable";
 
 class AddWorkout extends React.Component {
   state = {
@@ -10,14 +11,30 @@ class AddWorkout extends React.Component {
     exercises: [],
     newExercise: {
       name: "",
-      sets:"",
+      sets: "",
       reps: "",
+      obs: "",
     },
+    selectedExercise: "",
+    availableExercises: [],
     //imageUrl: 'http://some'
     //local
     //duration
     //weekdays
   };
+
+  componentDidMount() {
+    getAllExercises().then((response) => {
+      let options = response.data.map((exercise) => ({
+        id: exercise.id,
+        value: exercise.name,
+        label: exercise.name,
+      }));
+      this.setState({
+        availableExercises: options,
+      });
+    });
+  }
 
   //Isto é para conseguir escrever no formulário
   handleChange = (event) => {
@@ -54,25 +71,23 @@ class AddWorkout extends React.Component {
     // TODO: REVIEW
     event.preventDefault();
     const uploadData = new FormData();
-    const { title, description, weekdays } = this.state;
-    //uploadData.append('file', this.state.imageUrl);
+    const { title, description, weekdays, exercises } = this.state;
 
-    uploadFile(uploadData).then((response) => {
-      const newWorkout = {
-        title,
-        description,
-        weekdays,
-        //imageUrl: response.data.fileUrl
-      };
-      addWorkout(newWorkout).then(() => {
-        toast.success("Workout created!");
-        this.props.history.push("/workouts");
-      });
+    const newWorkout = {
+      title,
+      description,
+      weekdays,
+      exercises,
+    };
+    addWorkout(newWorkout).then(() => {
+      toast.success("Workout created!");
+      this.props.history.push("/workouts");
     });
   };
 
   addExercise = () => {
     const { exercises, newExercise } = this.state;
+    newExercise.name = this.state.selectedExercise.value;
     exercises.push(newExercise);
     this.setState({
       exercises,
@@ -80,6 +95,7 @@ class AddWorkout extends React.Component {
         name: "",
         sets: "",
         reps: "",
+        obs: "",
       },
     });
   };
@@ -134,27 +150,28 @@ class AddWorkout extends React.Component {
     );
   }
 
+  handleSelectExerciseChange = (name) => {
+    this.setState({ selectedExercise: name });
+  };
+
   renderExercises() {
     const {
       exercises,
-      newExercise: { name, sets, reps },
+      availableExercises,
+      newExercise: { sets, reps, obs },
     } = this.state;
     return (
       <div>
-        <label>Exercises</label>
         <ul>
           {exercises.map((e) => (
             <li>
-              {e.name} ({e.sets}x{e.reps})
+              {e.name} ({e.sets}x{e.reps} - {e.obs})
             </li>
           ))}
           <li>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              placeholder="Exercise name"
-              onChange={this.handleExerciseChange}
+            <CreatableSelect
+              onChange={this.handleSelectExerciseChange}
+              options={availableExercises}
             />
             <input
               type="number"
@@ -168,6 +185,13 @@ class AddWorkout extends React.Component {
               name="reps"
               value={reps}
               placeholder="reps"
+              onChange={this.handleExerciseChange}
+            />
+            <input
+              type="text"
+              name="obs"
+              value={obs}
+              placeholder="Obs:"
               onChange={this.handleExerciseChange}
             />
             <button type="button" onClick={this.addExercise}>
@@ -200,6 +224,7 @@ class AddWorkout extends React.Component {
         />
 
         {this.renderWeekdays()}
+        <label>Exercises</label>
 
         {this.renderExercises()}
 
