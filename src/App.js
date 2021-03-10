@@ -20,6 +20,7 @@ class App extends React.Component {
   };
 
   setCurrentUser = (user) => {
+    localStorage.setItem("loggedInUser", JSON.stringify(user))
     this.setState({
       loggedInUser: user,
     });
@@ -46,23 +47,40 @@ class App extends React.Component {
           loggedInUser={loggedInUser}
           setCurrentUser={this.setCurrentUser}
         />
-
-        <Switch>
-          <Route exact path="/" component={Home}></Route>
-          <Route exact path="/workouts" component={ListWorkouts}></Route>
-          <Route exact path="/exercises" component={ListExercises}></Route>
-          {/*<Route exact path="/workouts/add" component={AddWorkout}></Route>*/}
-          <PrivateRoute exact path="/workouts/add" component={AddWorkout} />
-          <Route exact path="/workouts/:id" component={WorkoutDetails}></Route>
-          <Route
-            exact
-            path="/login"
-            render={(props) => {
-              return <Login {...props} setCurrentUser={this.setCurrentUser} />;
-            }}
-          />
-          <Route exact path="/signup" component={Signup} />
-        </Switch>
+        <main className="container">
+          <Switch>
+            <Route exact path="/" component={Home}></Route>
+            <Route exact path="/workouts" component={ListWorkouts}></Route>
+            <Route exact path="/myworkouts" component={ListWorkouts}></Route>
+            <Route exact path="/exercises" component={ListExercises}></Route>
+            {/*<Route exact path="/workouts/add" component={AddWorkout}></Route>*/}
+            <PrivateRoute exact path="/workouts/add" component={AddWorkout} />
+            <Route
+              exact
+              path="/workouts/:id"
+              component={WorkoutDetails}
+            ></Route>
+            <Route
+              exact
+              path="/login"
+              render={(props) => {
+                return (
+                  <Login {...props} setCurrentUser={this.setCurrentUser} />
+                );
+              }}
+            />
+            <Route
+              exact
+              path="/signup"
+              render={(props) => {
+                return (
+                  <Signup {...props} setCurrentUser={this.setCurrentUser} />
+                );
+              }}
+            />
+           
+          </Switch>
+        </main>
       </div>
     );
   }

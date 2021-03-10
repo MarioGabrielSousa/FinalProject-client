@@ -1,11 +1,12 @@
 import React from "react";
-import { signup } from "../api";
+import { signup, login } from "../api";
 import { Link } from "react-router-dom";
 
 class Signup extends React.Component {
   state = {
     username: "",
     password: "",
+    email: ''
   };
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -13,12 +14,16 @@ class Signup extends React.Component {
   };
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const { username, password } = this.state;
-    signup(username, password)
-      .then(() => {
+    const { username, password, email } = this.state;
+    signup(username, email, password)
+      .then((response) => {
+        login(username, password);
+        this.props.setCurrentUser(response.data);
         this.props.history.push("/");
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error)
+      });
   };
   render() {
     const { username, email, password } = this.state;
@@ -34,7 +39,7 @@ class Signup extends React.Component {
           />
           <label>E-mail:</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={email}
             onChange={this.handleChange}

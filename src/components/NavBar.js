@@ -1,16 +1,44 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { logout } from "../api";
-import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 
-function NavBar({ loggedInUser, setCurrentUser, history }) {
+function NavBar({ loggedInUser, setCurrentUser }) {
+  const history = useHistory();
   const logoutUser = () => {
     logout().then(() => {
       setCurrentUser(null);
-      //history.push('/');
+      history.push("/");
     });
   };
-  return loggedInUser ? (
+  return (
+    <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="/">FiT-OH!</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/workouts">Everybody's Workouts</Nav.Link>
+        </Nav>
+        {loggedInUser ? (
+          <>
+          <Nav.Link href="/myworkouts">My Workouts</Nav.Link>
+          <Nav.Link href="/workouts/add">Add Workout</Nav.Link>
+          <NavDropdown title="My account">
+            <NavDropdown.Item href="/">{loggedInUser.username} My info </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={logoutUser}>Sign out</NavDropdown.Item>
+          </NavDropdown>
+          </>
+        ) : (
+          <>
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/signup">Signup</Nav.Link>
+          </>
+        )}
+      </Navbar.Collapse>
+    </Navbar>
+  );
+  /* return loggedInUser ? (
     <>
         <p>{loggedInUser.username}</p>
         <ul>
@@ -51,7 +79,7 @@ function NavBar({ loggedInUser, setCurrentUser, history }) {
         </li>
       </ul>
     </>
-  );
+  ); */
 }
 
 export default NavBar;

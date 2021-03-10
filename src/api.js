@@ -6,6 +6,9 @@ const baseURL = `${process.env.REACT_APP_WORKOUTS_API}/api`;
 export const getAllWorkouts = () => {
     return axios.get(`${baseURL}/workouts`);
 }
+export const getMyWorkouts = (userId) => {
+    return axios.get(`${baseURL}/myworkouts/${userId}`);
+}
 
 export const getWorkout = (id) => {
     return axios.get(`${baseURL}/workouts/${id}`);
@@ -26,6 +29,10 @@ export const updateWorkout = (updatedWorkout) => {
 // Exercises Routes
 export const getAllExercises = () => {
     return axios.get(`${baseURL}/exercises`);
+}
+
+export const getExercise = (id) => {
+    return axios.get(`${baseURL}/exercises/${id}`);
 }
 
 //AUTHENTICATION ROUTES

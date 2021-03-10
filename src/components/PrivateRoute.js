@@ -1,6 +1,7 @@
 import React from "react";
 import { loggedin } from "../api";
 import { Route, Redirect } from "react-router-dom";
+import AddWorkout from './AddWorkout'
 
 //This is called High Order Component
 class PrivateRoute extends React.Component {
