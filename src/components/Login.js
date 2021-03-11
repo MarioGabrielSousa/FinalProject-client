@@ -23,6 +23,7 @@ class Login extends React.Component {
           //if I get a response, it means the user got logged in
         //so now I want to lift the state up to app.js
         //setCurrentUser which is a prop
+        toast.info(`Ready to sweat, ${username}?`, { className: "toast-message" });
         setCurrentUser(response.data);
         history.push('/');
             }).catch(() => {

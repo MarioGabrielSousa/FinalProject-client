@@ -2,9 +2,9 @@ import React from "react";
 import { getAllWorkouts, getMyWorkouts, loggedin } from "../api";
 import { Link } from "react-router-dom";
 
-class ListWorkouts extends React.Component {
+class ListMyWorkouts extends React.Component {
   state = {
-    workouts: [],
+    workouts: false,
     loaded: false,
     user: ''
   };
@@ -18,37 +18,28 @@ class ListWorkouts extends React.Component {
 
   componentDidMount() {
 
-      getAllWorkouts().then(this.setWorkoutList);
-  
+      loggedin()
+      .then(response => {
+        if(response.data._id) {
+          this.setState({
+            user: response.data._id
+          })
+          getMyWorkouts(this.state.user).then(this.setWorkoutList)
+          return;
+        } else {
+          setTimeout(() => {
+            this.props.history.push('/login');
+            
+          },5000)
+        }
+      })
+
 
   }
-/*   componentDidMount() {
-    loggedin()
-    .then(response => {
-      if(response.data._id) {
-        this.setState({
-          user: response.data._id
-        })
-        let route = this.props.match.path
-        if(route === '/myworkouts') {
-          //dependendo da rota, vou ao get all workouts ou então my workouts, como no exemplo das breweries
-         getMyWorkouts(this.state.user).then(this.setWorkoutList)
-        } else {
-          getAllWorkouts().then(this.setWorkoutList);
-        }
-
-      } else {
-        getAllWorkouts().then(this.setWorkoutList);
-       
-      }
-
-    })
-
-  } */
 
   render() {
-    const { workouts } = this.state;
-    return  (
+    const { workouts, loaded, user } = this.state;
+    return loaded ? (
       <div className="workout-list">
         <h1>All Workouts</h1>
         <ul className="list-group">
@@ -64,9 +55,9 @@ class ListWorkouts extends React.Component {
           })}
         </ul>
       </div>
-    )
+    ) : !user ? <p>You must be login in to see this page. You will be redirected shortly. Click here if you're not:<Link to="/login">Login</Link></p> : null
     
   }
 }
 
-export default ListWorkouts;
+export default ListMyWorkouts;

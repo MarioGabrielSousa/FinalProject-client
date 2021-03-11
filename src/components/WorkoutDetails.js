@@ -49,7 +49,8 @@ class WorkoutDetails extends React.Component {
           {exercises.map((exercise, index) => {
             return (
               <ExerciseDetail key={index} index={index + ""} id={exercise.id}>
-                {exercise.sets}x{exercise.reps} – {exercise.name} ({exercise.obs})
+              {exercise.sets ? `${exercise.sets} x ` : null}{exercise.reps ? `${exercise.reps} reps -` : null} {exercise.name} {exercise.obs ? `(${exercise.obs})` : null}
+               {/*  {exercise.sets}x{exercise.reps} – {exercise.name} ({exercise.obs}) */}
               </ExerciseDetail>
             );
           })}

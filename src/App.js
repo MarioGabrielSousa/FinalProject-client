@@ -14,13 +14,15 @@ import Signup from "./components/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/Home";
 import ListExercises from "./components/ListExercises";
+import ListMyWorkouts from "./components/ListMyWorkouts";
+
 class App extends React.Component {
   state = {
     loggedInUser: null,
   };
 
   setCurrentUser = (user) => {
-    localStorage.setItem("loggedInUser", JSON.stringify(user))
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
     this.setState({
       loggedInUser: user,
     });
@@ -42,7 +44,17 @@ class App extends React.Component {
     const { loggedInUser } = this.state;
     return (
       <div className="App">
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <NavBar
           loggedInUser={loggedInUser}
           setCurrentUser={this.setCurrentUser}
@@ -51,7 +63,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/workouts" component={ListWorkouts}></Route>
-            <Route exact path="/myworkouts" component={ListWorkouts}></Route>
+            <Route exact path="/myworkouts" component={ListMyWorkouts}></Route>
             <Route exact path="/exercises" component={ListExercises}></Route>
             {/*<Route exact path="/workouts/add" component={AddWorkout}></Route>*/}
             <PrivateRoute exact path="/workouts/add" component={AddWorkout} />
@@ -78,7 +90,6 @@ class App extends React.Component {
                 );
               }}
             />
-           
           </Switch>
         </main>
       </div>

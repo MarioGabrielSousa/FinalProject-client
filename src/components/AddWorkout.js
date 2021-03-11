@@ -234,6 +234,14 @@ class AddWorkout extends React.Component {
     this.setState({ selectedExercise: name });
   };
 
+  deleteExercise = (index) => {
+    this.setState(previousState => {
+      return {
+        exercises: previousState.exercises.filter((e, i) => i !== index)
+      }
+    })
+  }
+
   renderExercises() {
     const {
       exercises,
@@ -247,9 +255,10 @@ class AddWorkout extends React.Component {
         </label>
         <div className="col-sm-10">
           <ul>
-            {exercises.map((e) => (
+            {exercises.map((e, index) => (
               <li>
                 {e.name} ({e.sets}x{e.reps}reps, {e.rest} - ({e.obs}))
+                <button onClick={() => this.deleteExercise(index)}>Delete</button>
               </li>
             ))}
             <li>
