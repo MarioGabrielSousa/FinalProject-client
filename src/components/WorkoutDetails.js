@@ -20,7 +20,7 @@ class WorkoutDetails extends React.Component {
         name: response.data.name,
         description: response.data.description,
         exercises: response.data.exercises,
-        weekDays: response.data.weekdays,
+        weekdays: response.data.weekdays,
       });
     });
   }
@@ -33,29 +33,28 @@ class WorkoutDetails extends React.Component {
   };
 
   render() {
-    const {
-      id,
-      name,
-      description,
-      exercises,
-      tooltipContent,
-      showTooltip,
-    } = this.state;
+    const { id, name, description, weekdays, exercises } = this.state;
     return (
       <div className="workout-details">
         <h2>{name}</h2>
         <p>{description}</p>
+        <p>
+          {weekdays?.map((day) => (
+            <span>{day + " "}</span>
+          ))}
+        </p>
         <Accordion>
           {exercises.map((exercise, index) => {
             return (
               <ExerciseDetail key={index} index={index + ""} id={exercise.id}>
-              {exercise.sets ? `${exercise.sets} x ` : null}{exercise.reps ? `${exercise.reps} reps -` : null} {exercise.name} {exercise.obs ? `(${exercise.obs})` : null}
-               {/*  {exercise.sets}x{exercise.reps} – {exercise.name} ({exercise.obs}) */}
+                {exercise.sets ? `${exercise.sets} x ` : null}
+                {exercise.reps ? `${exercise.reps} reps -` : null}{" "}
+                {exercise.name} {exercise.obs ? `(${exercise.obs})` : null}
               </ExerciseDetail>
             );
           })}
         </Accordion>
-        <button onClick={() => this.handleDeleteWorkout(id)}>Delete</button>
+        <button className="btn btn-danger" onClick={() => this.handleDeleteWorkout(id)}>Delete</button>
       </div>
     );
   }

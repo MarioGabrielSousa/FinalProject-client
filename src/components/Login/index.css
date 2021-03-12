@@ -1,0 +1,14 @@
+.login {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.login form > * {
+    display: block;
+    margin-bottom: 1em;
+}
+
+.login label {
+    margin-bottom: 0.2em;
+}
+

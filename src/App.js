@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
-import ListWorkouts from "./components/ListWorkouts";
+import ListWorkouts from "./components/ListAllWorkouts";
 import { Route, Switch } from "react-router-dom";
 import WorkoutDetails from "./components/WorkoutDetails";
 import AddWorkout from "./components/AddWorkout";
@@ -8,13 +7,14 @@ import NavBar from "./components/NavBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import { loggedin, login } from "./api";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import { loggedin } from "./api";
+import Login from "./components/Login/index";
+import Signup from "./components/Signup/index";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/Home";
 import ListExercises from "./components/ListExercises";
 import ListMyWorkouts from "./components/ListMyWorkouts";
+import Profile from './components/Profile';
 
 class App extends React.Component {
   state = {
@@ -46,7 +46,7 @@ class App extends React.Component {
       <div className="App">
         <ToastContainer
           position="top-center"
-          autoClose={5000}
+          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -63,10 +63,10 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/workouts" component={ListWorkouts}></Route>
-            <Route exact path="/myworkouts" component={ListMyWorkouts}></Route>
             <Route exact path="/exercises" component={ListExercises}></Route>
-            {/*<Route exact path="/workouts/add" component={AddWorkout}></Route>*/}
+            <PrivateRoute exact path="/myworkouts" component={ListMyWorkouts} />
             <PrivateRoute exact path="/workouts/add" component={AddWorkout} />
+            <PrivateRoute exact path="/profile" component={Profile} />
             <Route
               exact
               path="/workouts/:id"

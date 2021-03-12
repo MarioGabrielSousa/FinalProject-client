@@ -10,14 +10,20 @@ main.container {
   margin-bottom: 1em;
 }
 
-/* .tooltiptext {
-  width: 50%;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
+.add-workout {
+  max-width: 600px;
+  margin: 0 auto;
 }
- */
+
+.add-workout-exercise {
+  display: flex;
+}
+
+.add-workout-exercise div {
+  flex: 1
+}
+
+.my-account-dropdown .dropdown-menu {
+  right: 0;
+  left: unset;
+}

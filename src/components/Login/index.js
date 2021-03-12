@@ -1,7 +1,8 @@
 import React from "react";
-import { login } from "../api";
+import { login } from "../../api";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
+import './index.css';
 
 class Login extends React.Component {
   state = {
@@ -34,21 +35,21 @@ class Login extends React.Component {
   render() {
     const { username, password } = this.state;
     return (
-      <>
+      <div className="login">
         <form onSubmit={this.handleFormSubmit}>
           <label>Username</label>
-          <input type="text" name="username" onChange={this.handleChange} value={username} />
+          <input className="form-control" type="text" name="username" onChange={this.handleChange} value={username} />
 
           <label>Password</label>
-          <input type="password" name="password" onChange={this.handleChange} value={password} />
+          <input className="form-control" type="password" name="password" onChange={this.handleChange} value={password} />
 
-          <button type="submit">Login</button>
+          <button className="btn btn-primary" type="submit">Login</button>
         </form>
         <p>
           Don't have an account?
-          <Link to="/signup">Signup</Link>
+          <Link to="/signup"> Sign up here.</Link>
         </p>
-      </>
+      </div>
     );
   }
 }

@@ -1,12 +1,13 @@
 import React from "react";
-import { signup, login } from "../api";
+import { signup, login } from "../../api";
 import { Link } from "react-router-dom";
+import './index.css';
 
 class Signup extends React.Component {
   state = {
     username: "",
     password: "",
-    email: ''
+    email: "",
   };
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,16 +23,17 @@ class Signup extends React.Component {
         this.props.history.push("/");
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
   render() {
     const { username, email, password } = this.state;
     return (
-      <div>
+      <div className="signup">
         <form onSubmit={this.handleFormSubmit}>
           <label>Username:</label>
           <input
+            className="form-control"
             type="text"
             name="username"
             value={username}
@@ -39,6 +41,7 @@ class Signup extends React.Component {
           />
           <label>E-mail:</label>
           <input
+            className="form-control"
             type="email"
             name="email"
             value={email}
@@ -46,16 +49,17 @@ class Signup extends React.Component {
           />
           <label>Password:</label>
           <input
+            className="form-control"
             type="password"
             name="password"
             value={password}
             onChange={this.handleChange}
           />
-          <button>Signup</button>
+          <button className="btn btn-primary">Signup</button>
         </form>
         <p>
-          Already have account?
-          <Link to={"/login"}>Login</Link>
+          Got an account already?
+          <Link to={"/login"}> Login here!</Link>
         </p>
       </div>
     );

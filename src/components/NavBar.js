@@ -17,17 +17,25 @@ function NavBar({ loggedInUser, setCurrentUser }) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/workouts">Everybody's Workouts</Nav.Link>
+          <Nav.Link href="/workouts">TRAINING HUB</Nav.Link>
+          {loggedInUser && (
+            <>
+              <Nav.Link href="/myworkouts">MY WORKOUTS</Nav.Link>
+              <Nav.Link href="/workouts/add">ADD WORKOUT</Nav.Link>
+            </>
+          )}
         </Nav>
         {loggedInUser ? (
           <>
-          <Nav.Link href="/myworkouts">My Workouts</Nav.Link>
-          <Nav.Link href="/workouts/add">Add Workout</Nav.Link>
-          <NavDropdown title="My account">
-            <NavDropdown.Item href="/">{loggedInUser.username} My info </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item onClick={logoutUser}>Sign out</NavDropdown.Item>
-          </NavDropdown>
+            <Navbar>{loggedInUser.username}'s logged in!</Navbar>
+
+            <NavDropdown className="my-account-dropdown" title="MY ACCOUNT">
+              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/">Photo Album</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={logoutUser}>Sign out</NavDropdown.Item>
+            </NavDropdown>
           </>
         ) : (
           <>
@@ -38,48 +46,6 @@ function NavBar({ loggedInUser, setCurrentUser }) {
       </Navbar.Collapse>
     </Navbar>
   );
-  /* return loggedInUser ? (
-    <>
-        <p>{loggedInUser.username}</p>
-        <ul>
-          <li>
-            <NavLink to="/">
-              <button onClick={logoutUser}>Logout</button>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink activeStyle={{ color: "red" }} exact to="/workouts">
-              Workouts
-            </NavLink>
-          </li>
-          <li>
-            <NavLink activeStyle={{ color: "red" }} exact to="/workouts/add">
-              Add Workouts
-            </NavLink>
-          </li>
-        </ul>
-    </>
-  ) : (
-    <>
-      <ul>
-        <li>
-          <NavLink activeStyle={{ color: "red" }} exact to="/login">
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink activeStyle={{ color: "red" }} exact to="/signup">
-            Signup
-          </NavLink>
-        </li>
-        <li>
-          <NavLink activeStyle={{ color: "red" }} exact to="/workouts">
-            Workouts
-          </NavLink>
-        </li>
-      </ul>
-    </>
-  ); */
 }
 
 export default NavBar;
