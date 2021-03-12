@@ -69,37 +69,37 @@
 .PULL > ul > li {
   background: linear-gradient(
     0deg,
-    rgb(193, 252, 145) 0%,
-    rgb(19, 155, 1) 100%
+    rgb(255, 233, 135) 0%,
+    rgb(182, 185, 2) 100%
   );
-  color: black;
+  color: white;
 }
 
 .BIG > ul > li {
   background: linear-gradient(
     0deg,
-    rgb(193, 252, 145) 0%,
-    rgb(19, 155, 1) 100%
+    rgb(218, 102, 183) 0%,
+    rgb(170, 5, 143) 100%
   );
-  color: black;
+  color: white;
 }
 
 .SMALL > ul > li {
   background: linear-gradient(
     0deg,
-    rgb(193, 252, 145) 0%,
-    rgb(19, 155, 1) 100%
+    rgb(187, 250, 239) 0%,
+    rgb(3, 189, 179) 100%
   );
-  color: black;
+  color: white;
 }
 
 .CROSS > ul > li {
   background: linear-gradient(
     0deg,
-    rgb(193, 252, 145) 0%,
-    rgb(19, 155, 1) 100%
+    rgb(238, 187, 153) 0%,
+    rgb(155, 58, 20) 100%
   );
-  color: black;
+  color: white;
 }
 
 .MIND > ul > li {
