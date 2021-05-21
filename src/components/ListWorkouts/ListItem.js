@@ -6,7 +6,6 @@ class ListItem extends React.Component {
   handleDeleteWorkout = (e) => {
     e.preventDefault();
     deleteWorkout(this.props.workout._id).then(this.props.onDelete);
-    console.log(e);
     return false;
   };
 

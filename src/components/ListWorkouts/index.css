@@ -33,7 +33,7 @@
 }
 
 .FULL {
-  background: linear-gradient(0deg, rgb(252, 130, 130) 0%, rgb(255, 0, 0) 100%);
+  background: linear-gradient(0deg, rgb(253, 183, 183) 0%, rgb(255, 0, 0) 100%);
   color: white;
 }
 
@@ -76,8 +76,8 @@
 .BIG {
   background: linear-gradient(
     0deg,
-    rgb(218, 102, 183) 0%,
-    rgb(170, 5, 143) 100%
+    rgb(212, 37, 154) 0%,
+    rgb(248, 132, 233) 100%
   );
   color: white;
 }
@@ -101,21 +101,13 @@
 }
 
 .MIND {
-  background: linear-gradient(
-    0deg,
-    rgb(193, 252, 145) 0%,
-    rgb(19, 155, 1) 100%
-  );
-  color: black;
+  background: linear-gradient(0deg, #ffc6ec 0%, #6b1086 100%);
+  color: white;
 }
 
 .CARDIO {
-  background: linear-gradient(
-    0deg,
-    rgb(193, 252, 145) 0%,
-    rgb(19, 155, 1) 100%
-  );
-  color: black;
+  background: linear-gradient(0deg, #c27070 0%, #d3b11b 100%);
+  color: white;
 }
 
 .HIIT {
@@ -124,16 +116,12 @@
     rgb(193, 252, 145) 0%,
     rgb(19, 155, 1) 100%
   );
-  color: black;
+  color: white;
 }
 
 .MIX {
-  background: linear-gradient(
-    0deg,
-    rgb(193, 252, 145) 0%,
-    rgb(19, 155, 1) 100%
-  );
-  color: black;
+  background: linear-gradient(0deg, #89e0d8 0%, #9ed447 100%);
+  color: white;
 }
 
 .list-workout-item a {

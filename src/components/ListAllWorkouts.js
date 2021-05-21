@@ -36,7 +36,8 @@ class ListAllWorkouts extends React.Component {
     return (
       <div className="workout-list">
         <h1>HUB</h1>
-        <p>Pick a category and try workouts submitted by our users!</p>
+        <h5>Pick a category and try workouts submitted by our users!</h5>
+        <br />
         <ListWorkouts workouts={workouts} onUpdate={this.handleListUpdate} />
       </div>
     );

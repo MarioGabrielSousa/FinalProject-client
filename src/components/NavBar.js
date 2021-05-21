@@ -29,7 +29,7 @@ function NavBar({ loggedInUser, setCurrentUser }) {
           <>
            {/*  <Navbar>{loggedInUser.username}'s logged in!</Navbar> */}
 
-            <NavDropdown className="my-account-dropdown" title="MY ACCOUNT">
+            <NavDropdown className="my-account-dropdown" title="ACCOUNT">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/">Photo Album</NavDropdown.Item>
