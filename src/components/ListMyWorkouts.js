@@ -1,6 +1,6 @@
 import React from "react";
 import { getMyWorkouts, loggedin } from "../api";
-import ListWorkouts from './ListWorkouts/index';
+import ListWorkouts from "./ListWorkouts/index";
 
 class ListMyWorkouts extends React.Component {
   state = {
@@ -11,6 +11,23 @@ class ListMyWorkouts extends React.Component {
   setWorkoutList = (response) => {
     this.setState({
       workouts: response.data,
+      loaded: true,
+    });
+  };
+
+  handleListUpdate = () => {
+    this.setState({
+      workouts: [],
+      loaded: false,
+    });
+
+    loggedin().then((response) => {
+      if (response.data._id) {
+        this.setState({
+          user: response.data._id,
+        });
+        getMyWorkouts(this.state.user).then(this.setWorkoutList);
+      }
     });
   };
 
@@ -30,7 +47,7 @@ class ListMyWorkouts extends React.Component {
     return (
       <div className="workout-list">
         <h1>My Workouts</h1>
-        <ListWorkouts workouts={workouts} />
+        <ListWorkouts workouts={workouts} onUpdate={this.handleListUpdate} />
       </div>
     );
   }

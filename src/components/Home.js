@@ -3,9 +3,9 @@ import React from "react";
 function Home() {
   return (
     <div className="home-page">
-      <img src="" alt="" />
-      <h1>FiT-Oh!</h1>
-      <p>DIGITAL NOTEBOOK FOR YOUR WEEKLY WORKOUT ROUTINES</p>
+      <h1>DAILY DOSE</h1>
+      <p>DIGITAL NOTEBOOK FOR YOUR WORKOUT ROUTINES</p>
+      <img src="/images/home-img.png" alt="home-img" />
     </div>
   );
 }

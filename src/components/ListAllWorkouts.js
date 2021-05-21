@@ -9,23 +9,35 @@ class ListAllWorkouts extends React.Component {
     user: "",
   };
 
-  setWorkoutList = (response) => {
+  handleListUpdate = () => {
+    this.setState({
+      workouts: [],
+      loaded: false,
+    });
+    getAllWorkouts().then((response) => {
+      console.log(response);
+      this.setState({
+        workouts: response.data,
+        loaded: true,
+      });
+    });
+  };
+
+  async componentDidMount() {
+    const response = await getAllWorkouts();
     this.setState({
       workouts: response.data,
       loaded: true,
     });
-  };
-
-  componentDidMount() {
-    getAllWorkouts().then(this.setWorkoutList);
   }
+
   render() {
     const { workouts } = this.state;
     return (
       <div className="workout-list">
-        <h1>Training Hub</h1>
+        <h1>HUB</h1>
         <p>Pick a category and try workouts submitted by our users!</p>
-        <ListWorkouts workouts={workouts} />
+        <ListWorkouts workouts={workouts} onUpdate={this.handleListUpdate} />
       </div>
     );
   }

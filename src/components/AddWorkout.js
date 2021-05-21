@@ -8,7 +8,6 @@ class AddWorkout extends React.Component {
     name: "",
     category: "FULL BODY",
     description: "",
-    weekdays: [],
     exercises: [],
     newExercise: {
       id: "",
@@ -22,10 +21,6 @@ class AddWorkout extends React.Component {
     availableExercises: [],
     user: "",
     isPublic: false,
-    //imageUrl: 'http://some'
-    //local
-    //duration
-    //weekdays
   };
 
   componentDidMount() {
@@ -51,25 +46,13 @@ class AddWorkout extends React.Component {
   handleChange = (event) => {
     let { name, value, checked, type } = event.target;
     console.log({ name, value, checked });
-    console.log(this.state.weekdays);
     if (name === "isPublic") {
       this.setState({ isPublic: checked });
       return;
     }
-    if (name === "weekdays") {
-      const index = this.state.weekdays.indexOf(value);
-      const weekdays = this.state.weekdays;
-      if (index !== -1 && !checked) {
-        weekdays.splice(index, 1);
-      } else if (index === -1 && checked) {
-        weekdays.push(value);
-      }
-      this.setState({ weekdays });
-    } else {
-      this.setState({
-        [name]: value,
-      });
-    }
+    this.setState({
+      [name]: value,
+    });
   };
 
   handleExerciseChange = (event) => {
@@ -84,21 +67,13 @@ class AddWorkout extends React.Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const {
-      name,
-      category,
-      description,
-      weekdays,
-      exercises,
-      user,
-      isPublic,
-    } = this.state;
+    const { name, category, description, exercises, user, isPublic } =
+      this.state;
 
     const newWorkout = {
       name,
       category,
       description,
-      weekdays,
       exercises,
       user,
       isPublic,
@@ -127,109 +102,6 @@ class AddWorkout extends React.Component {
       },
     });
   };
-
-  renderWeekdays() {
-    return (
-      <fieldset className="row gy-2 gx-3 align-items-center">
-        <legend className="col-form-label col-sm-2 float-sm-left pt-0">
-          Week days
-        </legend>
-        <div className="col-sm-10">
-          <div className="form-check col-auto">
-            <input
-              id="monInput"
-              className="form-check-input"
-              type="checkbox"
-              name="weekdays"
-              value={"Mon"}
-              onChange={this.handleChange}
-            />
-            <label className="form-check-label" htmlFor="monInput">
-              Monday
-            </label>
-          </div>
-          <div className="form-check col-auto">
-            <input
-              id="tueInput"
-              className="form-check-input"
-              type="checkbox"
-              name="weekdays"
-              value={"Tue"}
-              onChange={this.handleChange}
-            />
-            <label className="form-check-label" htmlFor="monInput">
-              Tuesday
-            </label>
-          </div>
-          <div className="form-check col-auto">
-            <input
-              id="wedInput"
-              className="form-check-input"
-              type="checkbox"
-              name="weekdays"
-              value={"Wed"}
-              onChange={this.handleChange}
-            />
-            <label className="form-check-label" htmlFor="monInput">
-              Wednesday
-            </label>
-          </div>
-          <div className="form-check col-auto">
-            <input
-              id="thuInput"
-              className="form-check-input"
-              type="checkbox"
-              name="weekdays"
-              value={"Thu"}
-              onChange={this.handleChange}
-            />
-            <label className="form-check-label" htmlFor="monInput">
-              Thursday
-            </label>
-          </div>
-          <div className="form-check col-auto">
-            <input
-              id="friInput"
-              className="form-check-input"
-              type="checkbox"
-              name="weekdays"
-              value={"Fri"}
-              onChange={this.handleChange}
-            />
-            <label className="form-check-label" htmlFor="monInput">
-              Friday
-            </label>
-          </div>
-          <div className="form-check col-auto">
-            <input
-              id="satInput"
-              className="form-check-input"
-              type="checkbox"
-              name="weekdays"
-              value={"Sat"}
-              onChange={this.handleChange}
-            />
-            <label className="form-check-label" htmlFor="monInput">
-              Saturday
-            </label>
-          </div>
-          <div className="form-check col-auto">
-            <input
-              id="sunInput"
-              className="form-check-input"
-              type="checkbox"
-              name="weekdays"
-              value={"Sun"}
-              onChange={this.handleChange}
-            />
-            <label className="form-check-label" htmlFor="monInput">
-              Sunday
-            </label>
-          </div>
-        </div>
-      </fieldset>
-    );
-  }
 
   handleSelectExerciseChange = (name) => {
     this.setState({ selectedExercise: name });
@@ -262,7 +134,6 @@ class AddWorkout extends React.Component {
                   {e.sets ? `${e.sets} x ` : null}
                   {e.reps ? `${e.reps} reps -` : null} {e.name}{" "}
                   {e.obs ? `(${e.obs})` : null}
-                  {/*{e.name} ({e.sets}x{e.reps}reps, {e.rest} - ({e.obs}))*/}
                 </div>
                 <button
                   className="btn btn-outline-danger"
@@ -275,12 +146,13 @@ class AddWorkout extends React.Component {
             <CreatableSelect
               onChange={this.handleSelectExerciseChange}
               options={availableExercises}
-              placeholder="Choose an exercise or insert your own here."
+              placeholder="Choose an exercise or insert here."
             />
             <div className="input-group">
               <input
                 className="form-control"
                 type="number"
+                min={0}
                 name="sets"
                 value={sets}
                 placeholder="sets"
@@ -289,6 +161,7 @@ class AddWorkout extends React.Component {
               <input
                 className="form-control"
                 type="number"
+                min={0}
                 name="reps"
                 value={reps}
                 placeholder="reps"
@@ -393,14 +266,12 @@ class AddWorkout extends React.Component {
           </div>
         </div>
 
-        {this.renderWeekdays()}
         {this.renderExercises()}
         <div style={{ textAlign: "right" }}>
           <div className="form-check">
             <input
               class="form-check-input"
               type="checkbox"
-            
               id="flexCheckDefault"
               name="isPublic"
               checked={this.state.isPublic}
@@ -409,8 +280,8 @@ class AddWorkout extends React.Component {
             <label class="form-check-label" for="flexCheckDefault">
               Public
             </label>
-            </div>
-            <div>
+          </div>
+          <div>
             <button className="btn btn-primary" type="submit">
               Create
             </button>

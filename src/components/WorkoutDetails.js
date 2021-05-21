@@ -9,7 +9,6 @@ class WorkoutDetails extends React.Component {
     name: "",
     description: "",
     exercises: [],
-    weekDays: "",
   };
 
   componentDidMount() {
@@ -20,7 +19,6 @@ class WorkoutDetails extends React.Component {
         name: response.data.name,
         description: response.data.description,
         exercises: response.data.exercises,
-        weekdays: response.data.weekdays,
       });
     });
   }
@@ -33,16 +31,11 @@ class WorkoutDetails extends React.Component {
   };
 
   render() {
-    const { id, name, description, weekdays, exercises } = this.state;
+    const { id, name, description, exercises } = this.state;
     return (
       <div className="workout-details">
         <h2>{name}</h2>
         <p>{description}</p>
-        <p>
-          {weekdays?.map((day) => (
-            <span>{day + " "}</span>
-          ))}
-        </p>
         <Accordion>
           {exercises.map((exercise, index) => {
             return (

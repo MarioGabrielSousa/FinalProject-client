@@ -38,10 +38,10 @@ class Login extends React.Component {
       <div className="login">
         <form onSubmit={this.handleFormSubmit}>
           <label>Username</label>
-          <input className="form-control" type="text" name="username" onChange={this.handleChange} value={username} />
+          <input className="form-control" type="text" placeholder="Username" name="username" onChange={this.handleChange} value={username} />
 
           <label>Password</label>
-          <input className="form-control" type="password" name="password" onChange={this.handleChange} value={password} />
+          <input className="form-control" type="password" placeholder="Password" name="password" onChange={this.handleChange} value={password} />
 
           <button className="btn btn-primary" type="submit">Login</button>
         </form>

@@ -7,7 +7,7 @@ class ListWorkouts extends React.Component {
     workoutsByType: {},
   };
   categoriseWorkouts(workouts) {
-    const workoutsByType = this.state.workoutsByType;
+    const workoutsByType = {};
     workouts.forEach((workout) => {
       let matchingWorkouts = workoutsByType[workout.category];
       if (matchingWorkouts) {
@@ -16,11 +16,17 @@ class ListWorkouts extends React.Component {
         workoutsByType[workout.category] = [workout];
       }
     });
+    console.log(workoutsByType);
     this.setState({ workoutsByType });
   }
 
+  handleDelete = () => {
+    this.props.onUpdate();
+  };
+
   componentDidUpdate(props) {
-    if (this.props.workouts !== props.workouts) {
+    console.log(props, this.props);
+    if (this.props.workouts.length !== props.workouts.length) {
       this.categoriseWorkouts(this.props.workouts);
     }
   }
@@ -33,7 +39,13 @@ class ListWorkouts extends React.Component {
           <h5>{category}</h5>
           <ul className="list-workouts">
             {workouts.map((workout) => {
-              return <ListItem workout={workout} />;
+              return (
+                <ListItem
+                  key={workout._id}
+                  workout={workout}
+                  onDelete={this.handleDelete}
+                />
+              );
             })}
           </ul>
         </div>

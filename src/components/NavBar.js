@@ -12,12 +12,12 @@ function NavBar({ loggedInUser, setCurrentUser }) {
     });
   };
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">FiT-OH!</Navbar.Brand>
+    <Navbar className="nav-style">
+      <Navbar.Brand href="/">DAILY DOSE</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/workouts">TRAINING HUB</Nav.Link>
+          <Nav.Link href="/workouts">HUB</Nav.Link>
           {loggedInUser && (
             <>
               <Nav.Link href="/myworkouts">MY WORKOUTS</Nav.Link>
@@ -27,7 +27,7 @@ function NavBar({ loggedInUser, setCurrentUser }) {
         </Nav>
         {loggedInUser ? (
           <>
-            <Navbar>{loggedInUser.username}'s logged in!</Navbar>
+           {/*  <Navbar>{loggedInUser.username}'s logged in!</Navbar> */}
 
             <NavDropdown className="my-account-dropdown" title="MY ACCOUNT">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
