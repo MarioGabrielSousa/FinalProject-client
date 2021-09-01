@@ -1,8 +1,8 @@
 import React from "react";
 import { login } from "../../api";
 import { Link } from "react-router-dom";
-import { toast } from 'react-toastify';
-import './index.css';
+import { toast } from "react-toastify";
+import "./index.css";
 
 class Login extends React.Component {
   state = {
@@ -11,44 +11,66 @@ class Login extends React.Component {
   };
 
   handleChange = (event) => {
-      const { name, value } = event.target;
-      this.setState({[name]: value})
-  }
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
   handleFormSubmit = (event) => {
-      event.preventDefault();
-      const { username, password } = this.state;
-      const { setCurrentUser, history } = this.props;
+    event.preventDefault();
+    const { username, password } = this.state;
+    const { setCurrentUser, history } = this.props;
 
-      login(username, password).then((response) => {
-          //if I get a response, it means the user got logged in
+    login(username, password)
+      .then((response) => {
+        //if I get a response, it means the user got logged in
         //so now I want to lift the state up to app.js
         //setCurrentUser which is a prop
-        toast.info(`Ready to sweat, ${username}?`, { className: "toast-message" });
+        toast.info(`Ready to sweat, ${username}?`, {
+          className: "toast-message",
+        });
         setCurrentUser(response.data);
-        history.push('/');
-            }).catch(() => {
-                toast.error('Invalid login');
-            })
-  }
+        history.push("/");
+      })
+      .catch(() => {
+        toast.error("Invalid login");
+      });
+  };
 
   render() {
     const { username, password } = this.state;
     return (
-      <div className="login">
-        <form onSubmit={this.handleFormSubmit}>
-          <label>Username</label>
-          <input className="form-control" type="text" placeholder="Username" name="username" onChange={this.handleChange} value={username} />
-
-          <label>Password</label>
-          <input className="form-control" type="password" placeholder="Password" name="password" onChange={this.handleChange} value={password} />
-
-          <button className="btn btn-primary" type="submit">Login</button>
+      <div className="registration-form">
+        <form>
+          <div class="form-icon">
+            <span>
+              <i class="icon icon-user"></i>
+            </span>
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control item"
+              id="username"
+              placeholder="Username"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control item"
+              id="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-block create-account">
+              Jump right in!
+            </button>
+          </div>
         </form>
-        <p>
-          Don't have an account?
-          <Link to="/signup"> Sign up here.</Link>
-        </p>
+        <div class="social-media">
+          <h5>Not a member yet? Sign up <a href="/signup">here</a>!</h5>
+        </div>
       </div>
     );
   }
