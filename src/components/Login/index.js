@@ -40,7 +40,7 @@ class Login extends React.Component {
     const { username, password } = this.state;
     return (
       <div className="registration-form">
-        <form>
+        <form onSubmit={this.handleFormSubmit}>
           <div class="form-icon">
             <span>
               <i class="icon icon-user"></i>
@@ -52,6 +52,8 @@ class Login extends React.Component {
               class="form-control item"
               id="username"
               placeholder="Username"
+              value={username}
+              onChange={this.handleChange}
             />
           </div>
           <div class="form-group">
@@ -60,6 +62,8 @@ class Login extends React.Component {
               class="form-control item"
               id="password"
               placeholder="Password"
+              value={password}
+              onChange={this.handleChange}
             />
           </div>
           <div class="form-group">
@@ -69,7 +73,9 @@ class Login extends React.Component {
           </div>
         </form>
         <div class="social-media">
-          <h5>Not a member yet? Sign up <a href="/signup">here</a>!</h5>
+          <h5>
+            Not a member yet? Sign up <a href="/signup">here</a>!
+          </h5>
         </div>
       </div>
     );
